@@ -50,7 +50,7 @@ def lotek():
     random.shuffle(whole_set)
     answer = whole_set[:5]
     answer.sort()
-    return 'Your lucky numbers are: ' + ' '.join(answer)
+    return 'Your lucky numbers are: ' + ', '.join(answer)
 
 
 @app.route("/lotek_v1")  # no parameter methods passed defaults to GET
@@ -63,6 +63,30 @@ def lotek_v1():
     for n in lucky_nbrs:
         answer += str(n) + ', '
     return 'Your lucky numbers are: ' + answer[:-2]
+
+
+@app.route('/say_hi', methods=['GET'])
+def say_hi():
+    return """
+    <form action="/say_my_name" method="POST">
+        <label>Type your name:
+            <input type="text" name="print_name">
+        <label>
+            <button type="submit"> send </button>
+        </label>
+    </form>
+    """
+
+
+@app.route('/say_my_name', methods=['POST'])
+def say_my_name():
+    name = request.form['print_name']
+    return f'Hello {name}'
+
+
+
+
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
