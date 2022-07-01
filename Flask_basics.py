@@ -4,6 +4,7 @@ import datetime
 from datetime import datetime
 import random
 from random import randint
+from random import shuffle
 
 app = Flask(__name__)
 
@@ -17,25 +18,36 @@ def hello(name):
 def age(age):
     return 'You are ' + str(age) + ' and still alive!'
 
+
 @app.route("/date")  # no parameter methods passed defaults to GET
 def display_date():
-    #actual date
+    # actual date
     return 'It is  ' + str(datetime.today().strftime('%Y-%m-%d')) + ' have a nice day'
+
 
 @app.route("/time")  # no parameter methods passed defaults to GET
 def display_time():
-    #actual time
+    # actual time
     return 'It is  ' + str(datetime.today().strftime('%H:%M')) + ' have a nice day'
 
+
 @app.route("/licz/<a>/<b>")  # no parameter methods passed defaults to GET
-def sum_nbrs(a,b):
+def sum_nbrs(a, b):
     answer = float(a) + float(b)
     return 'adding ' + str(a) + ' to ' + str(b) + ' gives: ' + str(answer)
 
+
 @app.route("/losuj")  # no parameter methods passed defaults to GET
-def sum_nbrs(a,b):
-    answer = float(a) + float(b)
-    return 'adding ' + str(a) + ' to ' + str(b) + ' gives: ' + str(answer)
+def get_three():
+    return 'randomly selected digits are: ' + str(randint(0, 9)) + ' ' + str(randint(0, 9)) + ' and ' + str(randint(0, 9))
+
+
+@app.route("/lotek")  # no parameter methods passed defaults to GET
+def lotek():
+    whole_set = [str(x) for x in range(1,50)]
+    random.shuffle(whole_set)
+    answer = whole_set[:5]
+    return 'Your lucky numbers are: ' + ' '.join(answer)
 
 
 
