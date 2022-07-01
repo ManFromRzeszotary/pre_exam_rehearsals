@@ -39,16 +39,30 @@ def sum_nbrs(a, b):
 
 @app.route("/losuj")  # no parameter methods passed defaults to GET
 def get_three():
-    return 'randomly selected digits are: ' + str(randint(0, 9)) + ' ' + str(randint(0, 9)) + ' and ' + str(randint(0, 9))
+    return 'randomly selected digits are: ' + str(randint(0, 9)) + ' ' + str(randint(0, 9)) + ' and ' + str(
+        randint(0, 9))
 
 
 @app.route("/lotek")  # no parameter methods passed defaults to GET
 def lotek():
-    whole_set = [str(x) for x in range(1,50)]
+    # sorting a list of strings beware of 11 > 6 :)
+    whole_set = [str(x) for x in range(1, 50)]
     random.shuffle(whole_set)
     answer = whole_set[:5]
+    answer.sort()
     return 'Your lucky numbers are: ' + ' '.join(answer)
 
+
+@app.route("/lotek_v1")  # no parameter methods passed defaults to GET
+def lotek_v1():
+    whole_set = [x for x in range(1, 50)]
+    random.shuffle(whole_set)
+    lucky_nbrs = whole_set[:5]
+    lucky_nbrs.sort()
+    answer = ''
+    for n in lucky_nbrs:
+        answer += str(n) + ', '
+    return 'Your lucky numbers are: ' + answer[:-2]
 
 
 @app.route('/login', methods=['GET', 'POST'])
